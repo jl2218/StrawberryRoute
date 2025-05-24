@@ -4,13 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7028ac6b-4734-4360-a4d1-a253c0a95557" name="Changes" comment="" />
+    <list default="true" id="7028ac6b-4734-4360-a4d1-a253c0a95557" name="Changes" comment="fix: update styles for buttons">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/producers/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/producers/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/region/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/region/page.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="jl2218 &lt;joaopedropepe56@gmail.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="master" />
@@ -18,6 +28,18 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "jl2218"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/jl2218/StrawberryRoute.git",
+    "accountId": "74059ddf-0d23-4aa2-b181-56995d419d7b"
+  }
+}]]></component>
   <component name="PackageJsonUpdateNotifier">
     <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
@@ -105,14 +127,24 @@
       <updated>1747866985929</updated>
       <workItem from="1747866987423" duration="2128000" />
       <workItem from="1748116545757" duration="101000" />
-      <workItem from="1748116667040" duration="6680000" />
+      <workItem from="1748116667040" duration="7722000" />
     </task>
+    <task id="LOCAL-00001" summary="fix: update styles for buttons">
+      <option name="closed" value="true" />
+      <created>1748124376914</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1748124376914</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="LAST_COMMIT_MESSAGE" value="" />
+    <MESSAGE value="fix: update styles for buttons" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: update styles for buttons" />
   </component>
 </project>

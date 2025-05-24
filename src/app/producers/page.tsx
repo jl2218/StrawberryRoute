@@ -33,60 +33,31 @@ export default function ProducersPage() {
   const [filterMethod, setFilterMethod] = useState("");
 
   useEffect(() => {
-    // In a real application, this would be an API call
-    // For now, we'll use mock data
-    const mockProducers = [
-      {
-        id: 1,
-        name: "João Silva",
-        description: "Produtor de morangos orgânicos há mais de 15 anos. Especializado em variedades Albion e San Andreas.",
-        phone: "(35) 99876-5432",
-        address: "Estrada Rural, Km 5",
-        city: "Pouso Alegre",
-        state: "Minas Gerais",
-        zipCode: "37550-000",
-        latitude: -22.2293,
-        longitude: -45.9338,
-        cultivationMethods: ["Orgânico", "Semi-hidropônico"]
-      },
-      {
-        id: 2,
-        name: "Maria Santos",
-        description: "Produtora familiar de morangos. Cultivo tradicional e produtos artesanais derivados de morango.",
-        phone: "(35) 99765-4321",
-        address: "Sítio Bela Vista, s/n",
-        city: "Gonçalves",
-        state: "Minas Gerais",
-        zipCode: "37680-000",
-        latitude: -22.6566,
-        longitude: -45.8552,
-        cultivationMethods: ["Tradicional", "Familiar"]
-      },
-      {
-        id: 3,
-        name: "Carlos Oliveira",
-        description: "Produtor de morangos hidropônicos de alta qualidade. Tecnologia de ponta para garantir sabor e durabilidade.",
-        phone: "(35) 99654-3210",
-        address: "Rodovia MG-173, Km 10",
-        city: "Cambuí",
-        state: "Minas Gerais",
-        zipCode: "37600-000",
-        latitude: -22.6131,
-        longitude: -46.0572,
-        cultivationMethods: ["Hidropônico", "Vertical"]
+    const fetchProducers = async () => {
+      try {
+        const response = await fetch('/api/producers');
+        if (response.ok) {
+          const data = await response.json();
+          setProducers(data);
+        } else {
+          console.error('Erro ao buscar produtores');
+        }
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Erro ao buscar produtores:', error);
+        setIsLoading(false);
       }
-    ];
+    };
 
-    setProducers(mockProducers);
-    setIsLoading(false);
+    fetchProducers();
   }, []);
 
   const filteredProducers = producers.filter(producer => {
     const matchesSearch = producer.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
                          producer.city.toLowerCase().includes(searchTerm.toLowerCase());
-    
+
     const matchesFilter = filterMethod ? producer.cultivationMethods.includes(filterMethod) : true;
-    
+
     return matchesSearch && matchesFilter;
   });
 
@@ -141,7 +112,7 @@ export default function ProducersPage() {
           {/* Producers List */}
           <div className="lg:col-span-1 overflow-y-auto max-h-[600px] pr-4">
             <h2 className="text-2xl font-bold mb-6">Produtores ({filteredProducers.length})</h2>
-            
+
             {isLoading ? (
               <div className="text-center py-8">Carregando produtores...</div>
             ) : filteredProducers.length === 0 ? (
@@ -181,7 +152,7 @@ export default function ProducersPage() {
               </div>
             )}
           </div>
-          
+
           {/* Map */}
           <div className="lg:col-span-2 bg-gray-100 rounded-lg overflow-hidden h-[600px]">
             {!isLoading && (
@@ -215,12 +186,12 @@ export default function ProducersPage() {
                   Fechar
                 </button>
               </div>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
                 <div>
                   <h3 className="text-xl font-bold mb-4">Sobre o Produtor</h3>
                   <p className="text-gray-700 mb-4">{selectedProducer.description}</p>
-                  
+
                   <h4 className="font-bold mt-6 mb-2">Métodos de Cultivo:</h4>
                   <div className="flex flex-wrap gap-2 mb-6">
                     {selectedProducer.cultivationMethods.map((method, index) => (
@@ -229,14 +200,14 @@ export default function ProducersPage() {
                       </span>
                     ))}
                   </div>
-                  
+
                   <h4 className="font-bold mt-6 mb-2">Contato:</h4>
                   <p className="flex items-center mb-2">
                     <FaPhone className="mr-2 text-primary" />
                     {selectedProducer.phone}
                   </p>
                 </div>
-                
+
                 <div>
                   <h3 className="text-xl font-bold mb-4">Agendar Visita</h3>
                   <form className="space-y-4">
@@ -310,7 +281,7 @@ export default function ProducersPage() {
               Conectando produtores de morango do Sul de Minas com empresas e compradores.
             </p>
           </div>
-          
+
           <div>
             <h3 className="text-lg font-bold mb-4">Links Rápidos</h3>
             <ul className="space-y-2">
@@ -320,14 +291,14 @@ export default function ProducersPage() {
               <li><Link href="/login" className="text-gray-400 hover:text-white transition">Área do Produtor</Link></li>
             </ul>
           </div>
-          
+
           <div>
             <h3 className="text-lg font-bold mb-4">Contato</h3>
             <p className="text-gray-400 mb-2">contato@strawberryroute.com</p>
             <p className="text-gray-400">(35) 9999-9999</p>
           </div>
         </div>
-        
+
         <div className="max-w-7xl mx-auto mt-8 pt-8 border-t border-gray-700 text-center text-gray-400">
           <p>&copy; {new Date().getFullYear()} Strawberry Route. Todos os direitos reservados.</p>
         </div>

@@ -24,53 +24,34 @@ export default function RegionPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // In a real application, these would be API calls
-    // For now, we'll use mock data
-    const mockRegionInfo = [
-      {
-        id: 1,
-        title: "Sul de Minas - O Paraíso dos Morangos",
-        content: "O Sul de Minas Gerais é conhecido por seu clima ameno, com temperaturas médias entre 15°C e 25°C, ideal para o cultivo de morangos. A altitude entre 800 e 1.400 metros proporciona noites frescas e dias ensolarados, resultando em frutos doces e saborosos.",
-        imageUrl: "/images/region/sul-minas.jpg"
-      },
-      {
-        id: 2,
-        title: "Importância Econômica",
-        content: "A produção de morangos no Sul de Minas representa mais de 40% da produção estadual, gerando milhares de empregos diretos e indiretos. A região se destaca pela qualidade dos frutos e pela diversidade de variedades cultivadas.",
-        imageUrl: "/images/region/economy.jpg"
-      },
-      {
-        id: 3,
-        title: "Turismo Rural",
-        content: "O cultivo de morangos tem impulsionado o turismo rural na região, com diversas propriedades oferecendo experiências de 'colha e pague' e degustação de produtos derivados. Esta atividade complementa a renda dos produtores e fortalece a economia local.",
-        imageUrl: "/images/region/tourism.jpg"
-      }
-    ];
+    const fetchData = async () => {
+      try {
+        // Fetch region info
+        const regionResponse = await fetch('/api/regions');
+        if (regionResponse.ok) {
+          const regionData = await regionResponse.json();
+          setRegionInfo(regionData);
+        } else {
+          console.error('Erro ao buscar informações de regiões');
+        }
 
-    const mockCultivationInfo = [
-      {
-        id: 1,
-        title: "Cultivo Orgânico",
-        content: "O cultivo orgânico de morangos utiliza técnicas naturais sem o uso de pesticidas químicos ou fertilizantes sintéticos. Os produtores orgânicos do Sul de Minas utilizam compostagem, controle biológico de pragas e rotação de culturas para garantir morangos saudáveis e saborosos.",
-        imageUrl: "/images/cultivation/organic.jpg"
-      },
-      {
-        id: 2,
-        title: "Sistema Hidropônico",
-        content: "O cultivo hidropônico de morangos é realizado sem solo, com as plantas crescendo em soluções nutritivas. Este método permite maior controle sobre os nutrientes, reduz doenças e pragas, e possibilita produção durante todo o ano, mesmo em espaços reduzidos.",
-        imageUrl: "/images/cultivation/hydroponic.jpg"
-      },
-      {
-        id: 3,
-        title: "Cultivo Tradicional",
-        content: "O método tradicional de cultivo de morangos no Sul de Minas utiliza canteiros no solo, com irrigação por gotejamento e cobertura com mulching plástico. Este sistema é adaptado ao clima da região e permite o desenvolvimento de frutos com sabor característico.",
-        imageUrl: "/images/cultivation/traditional.jpg"
-      }
-    ];
+        // Fetch cultivation info
+        const cultivationResponse = await fetch('/api/cultivation');
+        if (cultivationResponse.ok) {
+          const cultivationData = await cultivationResponse.json();
+          setCultivationInfo(cultivationData);
+        } else {
+          console.error('Erro ao buscar informações de cultivo');
+        }
 
-    setRegionInfo(mockRegionInfo);
-    setCultivationInfo(mockCultivationInfo);
-    setIsLoading(false);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Erro ao buscar dados:', error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (
@@ -89,7 +70,7 @@ export default function RegionPage() {
       <section className="py-16 px-4">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">A Região</h2>
-          
+
           {isLoading ? (
             <div className="text-center py-8">Carregando informações...</div>
           ) : (
@@ -142,7 +123,7 @@ export default function RegionPage() {
       <section className="py-16 px-4 bg-secondary-light">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">Métodos de Cultivo</h2>
-          
+
           {isLoading ? (
             <div className="text-center py-8">Carregando informações...</div>
           ) : (
@@ -208,7 +189,7 @@ export default function RegionPage() {
               Conectando produtores de morango do Sul de Minas com empresas e compradores.
             </p>
           </div>
-          
+
           <div>
             <h3 className="text-lg font-bold mb-4">Links Rápidos</h3>
             <ul className="space-y-2">
@@ -218,14 +199,14 @@ export default function RegionPage() {
               <li><Link href="/login" className="text-gray-400 hover:text-white transition">Área do Produtor</Link></li>
             </ul>
           </div>
-          
+
           <div>
             <h3 className="text-lg font-bold mb-4">Contato</h3>
             <p className="text-gray-400 mb-2">contato@strawberryroute.com</p>
             <p className="text-gray-400">(35) 9999-9999</p>
           </div>
         </div>
-        
+
         <div className="max-w-7xl mx-auto mt-8 pt-8 border-t border-gray-700 text-center text-gray-400">
           <p>&copy; {new Date().getFullYear()} Strawberry Route. Todos os direitos reservados.</p>
         </div>

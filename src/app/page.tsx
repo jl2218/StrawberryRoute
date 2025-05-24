@@ -26,50 +26,40 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    // In a real application, these would be API calls
-    // For now, we'll use mock data
-    const mockProducers = [
-      {
-        id: 1,
-        name: "João Silva",
-        description: "Produtor de morangos orgânicos há mais de 15 anos. Especializado em variedades Albion e San Andreas.",
-        city: "Pouso Alegre",
-        cultivationMethods: ["Orgânico", "Semi-hidropônico"]
-      },
-      {
-        id: 2,
-        name: "Maria Santos",
-        description: "Produtora familiar de morangos. Cultivo tradicional e produtos artesanais derivados de morango.",
-        city: "Gonçalves",
-        cultivationMethods: ["Tradicional", "Familiar"]
-      },
-      {
-        id: 3,
-        name: "Carlos Oliveira",
-        description: "Produtor de morangos hidropônicos de alta qualidade. Tecnologia de ponta para garantir sabor e durabilidade.",
-        city: "Cambuí",
-        cultivationMethods: ["Hidropônico", "Vertical"]
-      }
-    ];
+    const fetchData = async () => {
+      try {
+        // Fetch producers
+        const producersResponse = await fetch('/api/producers');
+        if (producersResponse.ok) {
+          const producersData = await producersResponse.json();
+          setProducers(producersData);
+        } else {
+          console.error('Erro ao buscar produtores');
+        }
 
-    const mockRegionInfo = [
-      {
-        id: 1,
-        title: "Sul de Minas - O Paraíso dos Morangos",
-        content: "O Sul de Minas Gerais é conhecido por seu clima ameno, com temperaturas médias entre 15°C e 25°C, ideal para o cultivo de morangos.",
-        imageUrl: "/images/region/sul-minas.jpg"
-      }
-    ];
+        // Fetch region info
+        const regionResponse = await fetch('/api/regions');
+        if (regionResponse.ok) {
+          const regionData = await regionResponse.json();
+          setRegionInfo(regionData);
+        } else {
+          console.error('Erro ao buscar informações de regiões');
+        }
 
-    setProducers(mockProducers);
-    setRegionInfo(mockRegionInfo);
-    setIsLoading(false);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Erro ao buscar dados:', error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (
     <main className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative h-[70vh] flex items-center justify-center bg-green-700">
+      <section className="relative h-[40vh] flex items-center justify-center bg-green-700">
         <div className="absolute inset-0 bg-black opacity-30"></div>
         <div className="relative z-10 text-center px-4">
           <div className="flex justify-center mb-6">
@@ -102,7 +92,7 @@ export default function Home() {
       {/* Featured Producers Section */}
       <section className="py-16 px-4 max-w-7xl mx-auto">
         <h2 className="text-3xl font-bold text-center mb-12">Produtores em Destaque</h2>
-        
+
         {isLoading ? (
           <div className="text-center">Carregando...</div>
         ) : (
@@ -135,7 +125,7 @@ export default function Home() {
             ))}
           </div>
         )}
-        
+
         <div className="text-center mt-12">
           <Link 
             href="/producers"
@@ -150,7 +140,7 @@ export default function Home() {
       <section className="py-16 px-4 bg-secondary-light">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">Sul de Minas Gerais</h2>
-          
+
           {isLoading ? (
             <div className="text-center">Carregando...</div>
           ) : (
@@ -209,7 +199,7 @@ export default function Home() {
               Conectando produtores de morango do Sul de Minas com empresas e compradores.
             </p>
           </div>
-          
+
           <div>
             <h3 className="text-lg font-bold mb-4">Links Rápidos</h3>
             <ul className="space-y-2">
@@ -218,14 +208,14 @@ export default function Home() {
               <li><Link href="/login" className="text-gray-400 hover:text-white transition">Área do Produtor</Link></li>
             </ul>
           </div>
-          
+
           <div>
             <h3 className="text-lg font-bold mb-4">Contato</h3>
             <p className="text-gray-400 mb-2">contato@strawberryroute.com</p>
             <p className="text-gray-400">(35) 9999-9999</p>
           </div>
         </div>
-        
+
         <div className="max-w-7xl mx-auto mt-8 pt-8 border-t border-gray-700 text-center text-gray-400">
           <p>&copy; {new Date().getFullYear()} Strawberry Route. Todos os direitos reservados.</p>
         </div>
