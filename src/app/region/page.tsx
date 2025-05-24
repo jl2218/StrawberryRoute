@@ -107,10 +107,20 @@ export default function RegionPage() {
                       </div>
                     )}
                   </div>
-                  <div className={`bg-gray-300 h-80 rounded-lg flex items-center justify-center ${
-                    index % 2 === 1 ? 'lg:order-1' : ''
-                  }`}>
-                    <p className="text-gray-600">Imagem da {info.title}</p>
+                  <div className={`relative h-80 w-full rounded-lg overflow-hidden ${index % 2 === 1 ? 'lg:order-1' : ''}`}>
+                    {info.imageUrl ? (
+                        <Image
+                            src={info.imageUrl}
+                            alt={info.title}
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 1024px) 100vw, 50vw"
+                        />
+                    ) : (
+                        <div className="bg-gray-300 h-full w-full flex items-center justify-center">
+                          <p className="text-gray-600">Imagem da {info.title}</p>
+                        </div>
+                    )}
                   </div>
                 </div>
               ))}
@@ -130,8 +140,20 @@ export default function RegionPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {cultivationInfo.map((info) => (
                 <div key={info.id} className="bg-white rounded-lg shadow-lg overflow-hidden">
-                  <div className="h-48 bg-gray-300 flex items-center justify-center">
-                    <p className="text-gray-600">Imagem de {info.title}</p>
+                  <div className="relative h-48 w-full overflow-hidden">
+                    {info.imageUrl ? (
+                        <Image
+                            src={info.imageUrl}
+                            alt={info.title}
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 1024px) 100vw, 33vw"
+                        />
+                    ) : (
+                        <div className="bg-gray-300 h-full w-full flex items-center justify-center">
+                          <p className="text-gray-600">Imagem de {info.title}</p>
+                        </div>
+                    )}
                   </div>
                   <div className="p-6">
                     <h3 className="text-xl font-bold mb-3 text-gray-800">{info.title}</h3>

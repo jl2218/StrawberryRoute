@@ -175,8 +175,26 @@ export default function Home() {
                   Saiba Mais Sobre a Região
                 </Link>
               </div>
-              <div className="bg-gray-300 h-80 rounded-lg flex items-center justify-center">
-                <p className="text-gray-600">Imagem da Região</p>
+              <div className="relative h-80 w-full rounded-lg overflow-hidden">
+                {regionInfo[0] ? (
+                    regionInfo[0].imageUrl ? (
+                        <Image
+                            src={regionInfo[0].imageUrl}
+                            alt={regionInfo[0].title}
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 1024px) 100vw, 50vw"
+                        />
+                    ) : (
+                        <div className="bg-gray-300 h-full w-full flex items-center justify-center">
+                          <p className="text-gray-600">Imagem da {regionInfo[0].title}</p>
+                        </div>
+                    )
+                ) : (
+                    <div className="bg-gray-200 h-full w-full flex items-center justify-center">
+                      <p className="text-gray-500 italic">Informações da região não disponíveis</p>
+                    </div>
+                )}
               </div>
             </div>
           )}

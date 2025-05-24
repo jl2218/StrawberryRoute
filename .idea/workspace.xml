@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7028ac6b-4734-4360-a4d1-a253c0a95557" name="Changes" comment="feat: add API routes for cultivation, producers, regions, and image upload">
+    <list default="true" id="7028ac6b-4734-4360-a4d1-a253c0a95557" name="Changes" comment="feat: add producer profile support with image upload">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/prisma/schema.prisma" beforeDir="false" afterPath="$PROJECT_DIR$/prisma/schema.prisma" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/api/users/signup/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/api/users/signup/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/icons/agendar.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/icons/logo.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/icons/minha-agenda.svg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/users/signup/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/users/signup/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/region/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/region/page.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,13 +71,14 @@
     "nodejs_package_manager_path": "npm",
     "npm.Next.js: server-side.executor": "Debug",
     "npm.prisma:seed.executor": "Debug",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "configurable.group.junie",
     "ts.external.directory.path": "C:\\Dev\\StrawberryRoute\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Dev\StrawberryRoute\public\images\region" />
       <recent name="C:\Dev\StrawberryRoute\src\app" />
       <recent name="C:\Dev\StrawberryRoute\src\app\users" />
       <recent name="C:\Dev\StrawberryRoute\src\app\home" />
@@ -128,7 +130,7 @@
       <updated>1747866985929</updated>
       <workItem from="1747866987423" duration="2128000" />
       <workItem from="1748116545757" duration="101000" />
-      <workItem from="1748116667040" duration="10311000" />
+      <workItem from="1748116667040" duration="12440000" />
     </task>
     <task id="LOCAL-00001" summary="fix: update styles for buttons">
       <option name="closed" value="true" />
@@ -146,7 +148,15 @@
       <option name="project" value="LOCAL" />
       <updated>1748125511240</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="feat: add producer profile support with image upload">
+      <option name="closed" value="true" />
+      <created>1748129042370</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1748129042370</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -155,7 +165,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="fix: update styles for buttons" />
     <MESSAGE value="feat: add API routes for cultivation, producers, regions, and image upload" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add API routes for cultivation, producers, regions, and image upload" />
+    <MESSAGE value="feat: add producer profile support with image upload" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add producer profile support with image upload" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
