@@ -16,8 +16,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "A3 Agendamento",
-  description: "Aplicação para gerenciamento de agendamentos de consulta",
+  title: "Strawberry Route",
+  description: "Conectando produtores de morango do Sul de Minas com empresas e compradores",
 };
 
 export default function RootLayout({

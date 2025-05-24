@@ -56,7 +56,7 @@ export default function ForgotPassword() {
         />
         <button 
           type="submit" 
-          className="bg-blue-500 text-white rounded py-2 hover:bg-blue-600 transition"
+          className="btn-secondary"
           disabled={isSubmitting}>
           {isSubmitting ? 'Enviando...' : 'Enviar'}
         </button>

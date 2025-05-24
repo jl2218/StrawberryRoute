@@ -5,12 +5,22 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --primary: #e53e3e; /* Vibrant red for strawberries */
+  --primary-light: #f8d7da; /* Light red */
+  --secondary: #38a169; /* Vibrant green for leaves */
+  --secondary-light: #d4edda; /* Light green */
+  --accent: #805ad5; /* Purple accent */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #ededed;
-    --foreground: #0a0a0a;    
+    --background: #f8f9fa;
+    --foreground: #1a202c;
+    --primary: #e53e3e;
+    --primary-light: #f8d7da;
+    --secondary: #38a169;
+    --secondary-light: #d4edda;
+    --accent: #805ad5;
   }
 }
 
@@ -25,3 +35,22 @@ body {
     text-wrap: balance;
   }
 }
+
+@layer components {
+  .btn {
+    @apply bg-[color:var(--primary)] hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300;
+  }
+
+  .btn-sm {
+    @apply bg-[color:var(--primary)] hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition duration-300;
+  }
+
+  .btn-secondary {
+    @apply bg-[color:var(--secondary)] hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300;
+  }
+
+  .btn-secondary-sm {
+    @apply bg-[color:var(--secondary)] hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition duration-300;
+  }
+}
+

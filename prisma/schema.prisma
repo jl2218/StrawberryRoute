@@ -13,13 +13,80 @@ enum Role {
 }
 
 model User {
-  id                    Int       @id @default(autoincrement())
-  username              String    @unique
+  id                    Int             @id @default(autoincrement())
+  username              String          @unique
   password              String
-  createdAt             DateTime  @default(now())
-  email                 String    @unique
+  createdAt             DateTime        @default(now())
+  email                 String          @unique
   recoveryCode          String?
   recoveryCodeExpiresAt DateTime?
-  updatedAt             DateTime  @updatedAt
-  role                  Role      @default(ADMIN)
+  updatedAt             DateTime        @updatedAt
+  role                  Role            @default(ADMIN)
+  producer              Producer?
+  contactRequests       ContactRequest[]
+}
+
+model Producer {
+  id                Int             @id @default(autoincrement())
+  userId            Int             @unique
+  user              User            @relation(fields: [userId], references: [id])
+  name              String
+  description       String
+  phone             String
+  address           String
+  city              String
+  state             String          @default("Minas Gerais")
+  zipCode           String
+  latitude          Float
+  longitude         Float
+  cultivationMethods String[]
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  contactRequests   ContactRequest[]
+  visits            Visit[]
+}
+
+model ContactRequest {
+  id          Int       @id @default(autoincrement())
+  name        String
+  email       String
+  phone       String
+  message     String
+  producerId  Int
+  producer    Producer  @relation(fields: [producerId], references: [id])
+  userId      Int?
+  user        User?     @relation(fields: [userId], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Visit {
+  id          Int       @id @default(autoincrement())
+  name        String
+  email       String
+  phone       String
+  date        DateTime
+  producerId  Int
+  producer    Producer  @relation(fields: [producerId], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  status      String    @default("PENDING") // PENDING, APPROVED, REJECTED, COMPLETED
+}
+
+model CultivationInfo {
+  id          Int       @id @default(autoincrement())
+  title       String
+  content     String
+  imageUrl    String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model RegionInfo {
+  id          Int       @id @default(autoincrement())
+  title       String
+  content     String
+  imageUrl    String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }

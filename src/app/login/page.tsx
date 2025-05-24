@@ -48,7 +48,7 @@ export default function Login() {
 
         switch (decodedToken.role) {
           case 'ADMIN':
-            router.push('/home/admin');
+            router.push('/home');
             break;
           default:
             router.push('/login');
@@ -68,13 +68,17 @@ export default function Login() {
     <main className="flex flex-col items-center justify-center min-h-screen p-8 bg-gray-100">
 
       <header className="mb-8 text-center">
-        <Image
-          src="/icons/logo.svg"
-          alt="Logo"
-          width={180}
-          height={38}
-          className="mx-auto mb-8"
-        />
+        <div className="flex flex-col items-center">
+          <Image
+            src="/icons/strawberry-logo.svg"
+            alt="Strawberry Route Logo"
+            width={100}
+            height={100}
+            className="mx-auto mb-2"
+          />
+          <h1 className="text-3xl font-bold text-primary">Strawberry Route</h1>
+          <p className="text-sm text-gray-600 mt-1">Sul de Minas Gerais</p>
+        </div>
       </header>
 
       <form
@@ -100,15 +104,15 @@ export default function Login() {
         />
         <button
           type="submit"
-          className="bg-blue-500 text-white rounded py-2 hover:bg-blue-600 transition"
+          className="btn-secondary"
         >
           Entrar
         </button>
         <article className="mt-4 flex justify-between text-left">
-          <Link href="/users/signup" className="text-blue-500 hover:underline">
+          <Link href="/users/signup" className="text-primary hover:underline">
             Criar nova conta
           </Link>
-          <Link href="/users/forgot-password" className="text-blue-500 hover:underline">
+          <Link href="/users/forgot-password" className="text-primary hover:underline">
             Esqueci minha senha
           </Link>
         </article>

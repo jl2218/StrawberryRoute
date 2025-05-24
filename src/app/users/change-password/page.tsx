@@ -88,7 +88,7 @@ function ChangePasswordContent() {
           className="border p-2 rounded text-black"
           required
         />
-        <button type="submit" className="bg-blue-500 text-white rounded py-2 hover:bg-blue-600 transition">
+        <button type="submit" className="btn-secondary">
           Enviar
         </button>
       </form>
