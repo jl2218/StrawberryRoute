@@ -10,6 +10,7 @@ interface Producer {
   description: string;
   city: string;
   cultivationMethods: string[];
+  imageUrl?: string;
 }
 
 interface RegionInfo {
@@ -73,13 +74,13 @@ export default function Home() {
           <h1 className="text-5xl font-bold text-white mb-4">Strawberry Route</h1>
           <p className="text-xl text-white mb-8">Conectando produtores de morango do Sul de Minas com empresas e compradores</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button 
+            <button
               onClick={() => router.push('/producers')}
               className="bg-primary hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300"
             >
               Conheça os Produtores
             </button>
-            <button 
+            <button
               onClick={() => router.push('/login')}
               className="bg-secondary hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300"
             >
@@ -99,13 +100,29 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {producers.map((producer) => (
               <div key={producer.id} className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200 hover:shadow-xl transition duration-300">
-                <div className="h-48 bg-primary-light relative">
-                  <div className="absolute bottom-0 left-0 bg-primary text-white px-3 py-1 rounded-tr-lg">
-                    {producer.city}
-                  </div>
+                <div className="h-48 relative">
+                  {producer.imageUrl ? (
+                    <Image
+                      src={producer.imageUrl}
+                      alt={`Foto de ${producer.name}`}
+                      fill
+                      className="object-cover"
+                    />
+                  ) : (
+                    <div className="h-full w-full bg-primary-light flex items-center justify-center">
+                      <Image
+                        src="/icons/strawberry-logo.svg"
+                        alt="Strawberry Route Logo"
+                        width={60}
+                        height={60}
+                      />
+                    </div>
+                  )}
                 </div>
                 <div className="p-6">
+
                   <h3 className="text-xl font-bold mb-2 text-gray-800">{producer.name}</h3>
+                  <h4 className="text-lg text-gray-600 mb-4">{producer.city}</h4>
                   <p className="text-gray-600 mb-4">{producer.description}</p>
                   <div className="flex flex-wrap gap-2 mb-4">
                     {producer.cultivationMethods.map((method, index) => (
@@ -127,7 +144,7 @@ export default function Home() {
         )}
 
         <div className="text-center mt-12">
-          <Link 
+          <Link
             href="/producers"
             className="btn-secondary"
           >
@@ -151,7 +168,7 @@ export default function Home() {
                 <p className="text-gray-700 mb-6">
                   A altitude entre 800 e 1.400 metros proporciona noites frescas e dias ensolarados, resultando em frutos doces e saborosos. A região é conhecida pela produção de morangos de alta qualidade, que abastecem mercados em todo o Brasil.
                 </p>
-                <Link 
+                <Link
                   href="/region"
                   className="btn-secondary-sm"
                 >
@@ -173,7 +190,7 @@ export default function Home() {
           <p className="text-xl mb-8">
             Junte-se à Strawberry Route e conecte-se com empresas e compradores interessados em morangos de qualidade do Sul de Minas.
           </p>
-          <Link 
+          <Link
             href="/users/signup"
             className="btn-secondary"
           >
