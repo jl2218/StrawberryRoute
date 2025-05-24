@@ -91,7 +91,7 @@ export default function Home() {
             </button>
             <button 
               onClick={() => router.push('/login')}
-              className="bg-secondary hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300"
+              className="bg-secondary hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300"
             >
               Área do Produtor
             </button>
@@ -139,7 +139,7 @@ export default function Home() {
         <div className="text-center mt-12">
           <Link 
             href="/producers"
-            className="btn"
+            className="btn-secondary"
           >
             Ver Todos os Produtores
           </Link>
