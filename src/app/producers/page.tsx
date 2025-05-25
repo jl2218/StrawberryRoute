@@ -7,6 +7,7 @@ import { FaPhone, FaMapMarkerAlt } from "react-icons/fa";
 import "leaflet/dist/leaflet.css";
 import TopBanner from "@/components/top-banner";
 import Footer from "@/components/footer";
+import {useSearchParams} from "next/navigation";
 
 // Dynamically import the Map component to avoid SSR issues with Leaflet
 const ProducerMap = dynamic(() => import("./ProducerMap"), { ssr: false });
@@ -31,6 +32,7 @@ export default function ProducersPage() {
   const [selectedProducer, setSelectedProducer] = useState<Producer | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterMethod, setFilterMethod] = useState("");
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     const fetchProducers = async () => {
@@ -49,8 +51,18 @@ export default function ProducersPage() {
       }
     };
 
+    if (!isLoading && producers.length > 0) {
+      const idFromUrl = searchParams.get("id");
+      if (idFromUrl) {
+        const producerFound = producers.find(p => p.id === Number(idFromUrl));
+        if (producerFound) {
+          setSelectedProducer(producerFound);
+        }
+      }
+    }
+
     fetchProducers();
-  }, []);
+  }, [isLoading, producers, searchParams]);
 
   const filteredProducers = producers.filter(producer => {
     const matchesSearch = producer.name.toLowerCase().includes(searchTerm.toLowerCase()) || 

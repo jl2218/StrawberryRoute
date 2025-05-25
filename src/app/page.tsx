@@ -69,50 +69,46 @@ export default function Home() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {producers.map((producer) => (
-              <div key={producer.id} className="bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200 hover:shadow-xl transition duration-300">
-                <div className="h-48 relative">
-                  {producer.imageUrl ? (
-                    <Image
-                      src={producer.imageUrl}
-                      alt={`Foto de ${producer.name}`}
-                      fill
-                      className="object-cover"
-                    />
-                  ) : (
-                    <div className="h-full w-full bg-primary-light flex items-center justify-center">
-                      <Image
-                        src="/icons/strawberry-logo.svg"
-                        alt="Strawberry Route Logo"
-                        width={60}
-                        height={60}
-                      />
-                    </div>
-                  )}
-                </div>
-                <div className="p-6">
-
-                  <h3 className="text-xl font-bold mb-2 text-gray-800">{producer.name}</h3>
-                  <h4 className="text-lg text-gray-600 mb-4">{producer.city}</h4>
-                  <p className="text-gray-600 mb-4">{producer.description}</p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {producer.cultivationMethods.map((method, index) => (
-                      <span key={index} className="bg-secondary-light text-secondary px-3 py-1 rounded-full text-sm">
-                        {method}
-                      </span>
-                    ))}
+                <Link
+                    key={producer.id}
+                    href={`/producers?id=${producer.id}`}
+                    className="block bg-white rounded-lg shadow-lg overflow-hidden border border-gray-200 hover:shadow-xl transition duration-300"
+                >
+                  <div className="h-48 relative">
+                    {producer.imageUrl ? (
+                        <Image
+                            src={producer.imageUrl}
+                            alt={`Foto de ${producer.name}`}
+                            fill
+                            className="object-cover"
+                        />
+                    ) : (
+                        <div className="h-full w-full bg-primary-light flex items-center justify-center">
+                          <Image
+                              src="/icons/strawberry-logo.svg"
+                              alt="Strawberry Route Logo"
+                              width={60}
+                              height={60}
+                          />
+                        </div>
+                    )}
                   </div>
-                  {/*<Link */}
-                  {/*  href={`/producers/${producer.id}`}*/}
-                  {/*  className="btn-secondary-sm"*/}
-                  {/*>*/}
-                  {/*  Ver Detalhes*/}
-                  {/*</Link>*/}
-                </div>
-              </div>
+                  <div className="p-6">
+                    <h3 className="text-xl font-bold mb-2 text-gray-800">{producer.name}</h3>
+                    <h4 className="text-lg text-gray-600 mb-4">{producer.city}</h4>
+                    <p className="text-gray-600 mb-4">{producer.description}</p>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {producer.cultivationMethods.map((method, index) => (
+                          <span key={index} className="bg-secondary-light text-secondary px-3 py-1 rounded-full text-sm">
+                            {method}
+                          </span>
+                      ))}
+                    </div>
+                  </div>
+                </Link>
             ))}
           </div>
         )}
-
         <div className="text-center mt-12">
           <Link
             href="/producers"
