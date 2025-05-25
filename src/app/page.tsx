@@ -2,7 +2,8 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import TopBanner from "@/components/top-banner";
+import Footer from "@/components/footer";
 
 interface Producer {
   id: number;
@@ -24,7 +25,6 @@ export default function Home() {
   const [producers, setProducers] = useState<Producer[]>([]);
   const [regionInfo, setRegionInfo] = useState<RegionInfo[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,37 +59,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="relative h-[40vh] flex items-center justify-center bg-green-700">
-        <div className="absolute inset-0 bg-black opacity-30"></div>
-        <div className="relative z-10 text-center px-4">
-          <div className="flex justify-center mb-6">
-            <Image
-              src="/icons/strawberry-logo.svg"
-              alt="Strawberry Route Logo"
-              width={120}
-              height={120}
-            />
-          </div>
-          <h1 className="text-5xl font-bold text-white mb-4">Strawberry Route</h1>
-          <p className="text-xl text-white mb-8">Conectando produtores de morango do Sul de Minas com empresas e compradores</p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button
-              onClick={() => router.push('/producers')}
-              className="bg-primary hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300"
-            >
-              Conheça os Produtores
-            </button>
-            <button
-              onClick={() => router.push('/login')}
-              className="bg-secondary hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300"
-            >
-              Área do Produtor
-            </button>
-          </div>
-        </div>
-      </section>
-
+      <TopBanner></TopBanner>
       {/* Featured Producers Section */}
       <section className="py-16 px-4 max-w-7xl mx-auto">
         <h2 className="text-3xl font-bold text-center mb-12">Produtores em Destaque</h2>
@@ -217,44 +187,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-gray-800 text-white py-12 px-4">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div>
-            <div className="flex items-center mb-4">
-              <Image
-                src="/icons/strawberry-logo.svg"
-                alt="Strawberry Route Logo"
-                width={40}
-                height={40}
-              />
-              <span className="ml-2 text-xl font-bold">Strawberry Route</span>
-            </div>
-            <p className="text-gray-400">
-              Conectando produtores de morango do Sul de Minas com empresas e compradores.
-            </p>
-          </div>
-
-          <div>
-            <h3 className="text-lg font-bold mb-4">Links Rápidos</h3>
-            <ul className="space-y-2">
-              <li><Link href="/producers" className="text-gray-400 hover:text-white transition">Produtores</Link></li>
-              <li><Link href="/region" className="text-gray-400 hover:text-white transition">Região</Link></li>
-              <li><Link href="/login" className="text-gray-400 hover:text-white transition">Área do Produtor</Link></li>
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-lg font-bold mb-4">Contato</h3>
-            <p className="text-gray-400 mb-2">contato@strawberryroute.com</p>
-            <p className="text-gray-400">(35) 9999-9999</p>
-          </div>
-        </div>
-
-        <div className="max-w-7xl mx-auto mt-8 pt-8 border-t border-gray-700 text-center text-gray-400">
-          <p>&copy; {new Date().getFullYear()} Strawberry Route. Todos os direitos reservados.</p>
-        </div>
-      </footer>
+      <Footer></Footer>
     </main>
   );
 }
