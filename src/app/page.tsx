@@ -175,7 +175,7 @@ export default function Home() {
             Junte-se à Strawberry Route e conecte-se com empresas e compradores interessados em morangos de qualidade do Sul de Minas.
           </p>
           <Link
-            href="/users/signup"
+            href="/users/signup?isProducer=true"
             className="btn-secondary"
           >
             Cadastre-se como Produtor

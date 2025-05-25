@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef } from 'react';
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { validatePassword } from '@/utils/auth';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,7 +11,9 @@ export default function Signup() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [email, setEmail] = useState('');
-  const [isProducer, setIsProducer] = useState(false);
+
+  const searchParams = useSearchParams();
+  const [isProducer] = useState(() => searchParams.get("isProducer") === "true");
 
   // Producer fields
   const [name, setName] = useState('');
@@ -164,19 +166,6 @@ export default function Signup() {
               required
             />
           </div>
-        </div>
-
-        {/* Producer Toggle */}
-        <div className="mb-4">
-          <label className="flex items-center space-x-2 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={isProducer}
-              onChange={() => setIsProducer(!isProducer)}
-              className="form-checkbox h-5 w-5 text-secondary"
-            />
-            <span className="text-black">Sou um produtor de morangos</span>
-          </label>
         </div>
 
         {/* Producer Information (conditionally rendered) */}
