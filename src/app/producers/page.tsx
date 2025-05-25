@@ -7,7 +7,7 @@ import { FaPhone, FaMapMarkerAlt } from "react-icons/fa";
 import "leaflet/dist/leaflet.css";
 import TopBanner from "@/components/top-banner";
 import Footer from "@/components/footer";
-import {useSearchParams} from "next/navigation";
+import {useRouter, useSearchParams} from "next/navigation";
 
 // Dynamically import the Map component to avoid SSR issues with Leaflet
 const ProducerMap = dynamic(() => import("./ProducerMap"), { ssr: false });
@@ -33,6 +33,7 @@ export default function ProducersPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterMethod, setFilterMethod] = useState("");
   const searchParams = useSearchParams();
+  const router = useRouter();
 
   useEffect(() => {
     const fetchProducers = async () => {
@@ -51,18 +52,18 @@ export default function ProducersPage() {
       }
     };
 
-    if (!isLoading && producers.length > 0) {
-      const idFromUrl = searchParams.get("id");
-      if (idFromUrl) {
-        const producerFound = producers.find(p => p.id === Number(idFromUrl));
-        if (producerFound) {
-          setSelectedProducer(producerFound);
-        }
-      }
-    }
-
     fetchProducers();
   }, [isLoading, producers, searchParams]);
+
+  useEffect(() => {
+    const idFromUrl = searchParams.get("id");
+    if (idFromUrl && producers.length > 0) {
+      const found = producers.find(p => p.id === Number(idFromUrl));
+      if (found) {
+        setSelectedProducer(found);
+      }
+    }
+  }, [searchParams, producers]);
 
   const filteredProducers = producers.filter(producer => {
     const matchesSearch = producer.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -140,7 +141,10 @@ export default function ProducersPage() {
                     className={`bg-white rounded-lg shadow-md p-4 border-l-4 cursor-pointer transition duration-300 hover:shadow-lg ${
                       selectedProducer?.id === producer.id ? 'border-primary' : 'border-gray-200'
                     }`}
-                    onClick={() => setSelectedProducer(producer)}
+                    onClick={() => {
+                      setSelectedProducer(producer);
+                      router.replace("/producers", { scroll: false });
+                    }}
                   >
                     <h3 className="text-xl font-bold mb-2">{producer.name}</h3>
                     <p className="text-gray-600 mb-3 flex items-center">
@@ -192,8 +196,11 @@ export default function ProducersPage() {
                     {selectedProducer.address}, {selectedProducer.city}, {selectedProducer.state}
                   </p>
                 </div>
-                <button 
-                  onClick={() => setSelectedProducer(null)}
+                <button
+                  onClick={() => {
+                    setSelectedProducer(null);
+                    router.replace("/producers", { scroll: false });
+                  }}
                   className="text-gray-500 hover:text-gray-700"
                 >
                   Fechar
