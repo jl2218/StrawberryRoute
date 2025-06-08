@@ -50,6 +50,9 @@ export default function Login() {
           case 'ADMIN':
             router.push('/home');
             break;
+          case 'PRODUCER':
+            router.push('/producers/dashboard');
+            break;
           default:
             router.push('/login');
             break;

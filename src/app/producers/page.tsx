@@ -32,6 +32,14 @@ export default function ProducersPage() {
   const [selectedProducer, setSelectedProducer] = useState<Producer | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterMethod, setFilterMethod] = useState("");
+  const [visitName, setVisitName] = useState("");
+  const [visitEmail, setVisitEmail] = useState("");
+  const [visitPhone, setVisitPhone] = useState("");
+  const [visitDate, setVisitDate] = useState("");
+  const [visitMessage, setVisitMessage] = useState("");
+  const [visitLoading, setVisitLoading] = useState(false);
+  const [visitSuccess, setVisitSuccess] = useState("");
+  const [visitError, setVisitError] = useState("");
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -53,7 +61,7 @@ export default function ProducersPage() {
     };
 
     fetchProducers();
-  }, [isLoading, producers, searchParams]);
+  }, [searchParams]);
 
   useEffect(() => {
     const idFromUrl = searchParams.get("id");
@@ -230,13 +238,49 @@ export default function ProducersPage() {
 
                 <div>
                   <h3 className="text-xl font-bold mb-4">Agendar Visita</h3>
-                  <form className="space-y-4">
+                  <form className="space-y-4" onSubmit={async (e) => {
+                    e.preventDefault();
+                    setVisitLoading(true);
+                    setVisitSuccess("");
+                    setVisitError("");
+                    try {
+                      const res = await fetch("/api/producers/visits", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                          name: visitName,
+                          email: visitEmail,
+                          phone: visitPhone,
+                          date: visitDate,
+                          producerId: selectedProducer.id,
+                          message: visitMessage,
+                        }),
+                      });
+                      if (res.ok) {
+                        setVisitSuccess("Visita agendada com sucesso!");
+                        setVisitName("");
+                        setVisitEmail("");
+                        setVisitPhone("");
+                        setVisitDate("");
+                        setVisitMessage("");
+                      } else {
+                        const data = await res.json();
+                        setVisitError(data.message || "Erro ao agendar visita");
+                      }
+                    } catch {
+                      setVisitError("Erro ao agendar visita");
+                    }
+                    setVisitLoading(false);
+                  }}>
                     <div>
                       <label className="block text-gray-700 mb-2">Nome</label>
                       <input 
                         type="text" 
                         className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                         placeholder="Seu nome completo"
+                        value={visitName}
+                        onChange={e => setVisitName(e.target.value)}
+                        required
                       />
                     </div>
                     <div>
@@ -245,6 +289,9 @@ export default function ProducersPage() {
                         type="email" 
                         className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                         placeholder="seu@email.com"
+                        value={visitEmail}
+                        onChange={e => setVisitEmail(e.target.value)}
+                        required
                       />
                     </div>
                     <div>
@@ -253,6 +300,9 @@ export default function ProducersPage() {
                         type="tel" 
                         className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                         placeholder="(00) 00000-0000"
+                        value={visitPhone}
+                        onChange={e => setVisitPhone(e.target.value)}
+                        required
                       />
                     </div>
                     <div>
@@ -260,6 +310,9 @@ export default function ProducersPage() {
                       <input 
                         type="date" 
                         className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
+                        value={visitDate}
+                        onChange={e => setVisitDate(e.target.value)}
+                        required
                       />
                     </div>
                     <div>
@@ -268,13 +321,18 @@ export default function ProducersPage() {
                         className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary"
                         placeholder="Detalhes adicionais sobre sua visita..."
                         rows={3}
+                        value={visitMessage}
+                        onChange={e => setVisitMessage(e.target.value)}
                       ></textarea>
                     </div>
-                    <button 
+                    {visitSuccess && <div className="text-green-600 font-semibold">{visitSuccess}</div>}
+                    {visitError && <div className="text-red-600 font-semibold">{visitError}</div>}
+                    <button
                       type="submit"
-                      className="w-full bg-secondary hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300"
+                      className="w-full btn-secondary"
+                      disabled={visitLoading}
                     >
-                      Solicitar Visita
+                      {visitLoading ? "Enviando..." : "Solicitar Visita"}
                     </button>
                   </form>
                 </div>

@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 
 const SECRET_KEY = process.env.NEXT_PUBLIC_JWT_SECRET!;
 
-export const authorize = (roles: ('ADMIN')[]) => {
+export const authorize = (roles: ('ADMIN | PRODUCER')[]) => {
   return async (request: Request) => {
     const authHeader = request.headers.get('Authorization');
 
