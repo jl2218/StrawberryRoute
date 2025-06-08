@@ -33,7 +33,7 @@ export default function Home() {
         const producersResponse = await fetch('/api/producers');
         if (producersResponse.ok) {
           const producersData = await producersResponse.json();
-          setProducers(producersData);
+          setProducers(producersData.slice(0, 3));
         } else {
           console.error('Erro ao buscar produtores');
         }
