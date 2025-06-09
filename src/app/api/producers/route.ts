@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma';
-import { NextResponse } from 'next/server';
+import {NextResponse} from 'next/server';
+import {authorize} from "@/middlewares/authMiddleware";
 
 /**
  * @swagger
@@ -86,5 +87,83 @@ export async function GET() {
       { message: 'Erro ao buscar produtores' },
       { status: 500 }
     );
+  }
+}
+
+/**
+ * @swagger
+ * /api/producers:
+ *   put:
+ *     summary: Atualiza os dados do produtor autenticado
+ *     description: Atualiza os dados cadastrais do produtor com base no token de autenticação.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name: { type: string }
+ *               description: { type: string }
+ *               phone: { type: string }
+ *               address: { type: string }
+ *               city: { type: string }
+ *               state: { type: string }
+ *               zipCode: { type: string }
+ *               latitude: { type: number, format: float }
+ *               longitude: { type: number, format: float }
+ *               cultivationMethods: { type: array, items: { type: string } }
+ *     responses:
+ *       200:
+ *         description: Dados atualizados com sucesso
+ *       400:
+ *         description: Requisição inválida
+ *       401:
+ *         description: Não autorizado
+ *       500:
+ *         description: Erro interno do servidor
+ */
+export async function PUT(request: Request) {
+  try {
+    const auth = await authorize(['PRODUCER'])(request);
+    if (auth) return auth;
+
+    const body = await request.json();
+    const {
+      name,
+      description,
+      phone,
+      address,
+      city,
+      state,
+      zipCode,
+      latitude,
+      longitude,
+      cultivationMethods,
+    } = body;
+
+    const user: any = (request as any).user;
+
+    console.log(user);
+    const updated = await prisma.producer.update({
+      where: { userId: user.userId },
+      data: {
+        name,
+        description,
+        phone,
+        address,
+        city,
+        state,
+        zipCode,
+        latitude,
+        longitude,
+        cultivationMethods,
+      },
+    });
+
+    return NextResponse.json(updated);
+  } catch (error) {
+    console.error('Erro ao atualizar produtor:', error);
+    return NextResponse.json({ message: 'Erro ao atualizar produtor' }, { status: 500 });
   }
 }
