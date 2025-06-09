@@ -78,25 +78,28 @@ export default function ProducerDashboard() {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
+      const formData = new FormData();
+      formData.append("name", producer.name);
+      formData.append("description", producer.description);
+      formData.append("phone", producer.phone);
+      formData.append("address", producer.address);
+      formData.append("city", producer.city);
+      formData.append("state", producer.state);
+      formData.append("zipCode", producer.zipCode);
+      formData.append("latitude", producer.latitude);
+      formData.append("longitude", producer.longitude);
+      formData.append("cultivationMethods", JSON.stringify(producer.cultivationMethods));
+      const file = fileInputRef.current?.files?.[0];
+      if (file) formData.append("profilePicture", file);
+
       const res = await fetch("/api/producers", {
         method: "PUT",
         headers: {
-          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({
-          name: producer.name,
-          description: producer.description,
-          phone: producer.phone,
-          address: producer.address,
-          city: producer.city,
-          state: producer.state || "",
-          zipCode: producer.zipCode || "",
-          latitude: parseFloat(producer.latitude) || 0,
-          longitude: parseFloat(producer.longitude) || 0,
-          cultivationMethods: producer.cultivationMethods || [],
-        }),
+        body: formData,
       });
+
       if (res.ok) {
         const data = await res.json();
         setProducer(data);
