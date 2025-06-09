@@ -138,18 +138,40 @@ export default function ProducerDashboard() {
             </div>
           </section>
 
-          <section className="bg-white p-4 rounded shadow">
-            <h2 className="text-xl font-semibold mb-2">Visitas agendadas</h2>
+          <section className="bg-white p-6 rounded-lg shadow border border-gray-200">
+            <h2 className="text-2xl font-semibold mb-4 text-gray-800">Visitas Agendadas</h2>
             {visits.length === 0 ? (
-                <div>Nenhuma visita agendada.</div>
+                <p className="text-gray-500">Nenhuma visita agendada.</p>
             ) : (
-                <ul className="divide-y">
-                  {visits.map((visit) => (
-                      <li key={visit.id} className="py-2">
-                        <b>{visit.name}</b> - {visit.date?.slice(0, 10)} - {visit.status}
-                      </li>
-                  ))}
-                </ul>
+                <div className="overflow-x-auto">
+                  <table className="min-w-full text-sm text-left text-gray-600">
+                    <thead className="bg-gray-100 text-xs uppercase text-gray-700">
+                    <tr>
+                      <th className="px-4 py-2">Nome</th>
+                      <th className="px-4 py-2">E-mail</th>
+                      <th className="px-4 py-2">Telefone</th>
+                      <th className="px-4 py-2">Data</th>
+                      <th className="px-4 py-2">Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {visits.map((visit) => (
+                        <tr key={visit.id} className="border-b hover:bg-gray-50">
+                          <td className="px-4 py-2 whitespace-nowrap">{visit.name}</td>
+                          <td className="px-4 py-2 whitespace-nowrap">{visit.email}</td>
+                          <td className="px-4 py-2 whitespace-nowrap">{visit.phone}</td>
+                          <td className="px-4 py-2 whitespace-nowrap">{new Date(visit.date).toLocaleDateString("pt-BR")}</td>
+                          <td className="px-4 py-2 whitespace-nowrap">
+                            {visit.status === "PENDING" && "Pendente"}
+                            {visit.status === "APPROVED" && "Aprovada"}
+                            {visit.status === "REJECTED" && "Recusada"}
+                            {visit.status === "COMPLETED" && "Concluída"}
+                          </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                  </table>
+                </div>
             )}
           </section>
 
