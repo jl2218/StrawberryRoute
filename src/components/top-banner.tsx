@@ -26,6 +26,7 @@ export default function TopBanner() {
         </div>
 
         <div>
+          <Link href="/login" className="bg-primary hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">Área do Produtor</Link>
           <Link href="/producers" className="bg-primary hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300">Conheça os Produtores</Link>
         </div>
       </div>
